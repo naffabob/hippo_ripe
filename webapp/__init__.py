@@ -1,11 +1,12 @@
-from flask import Flask, render_template
+from flask import Flask
 
-from webapp.provider_ripedb import get_provider_clients_by_asset
-from webapp.settings import PROVIDER_ASSET
+from webapp.model_db import db
 
 
 def create_app():
     app = Flask(__name__)
+    app.config.from_pyfile('settings.py')
+    db.init_app(app)
 
     @app.route('/')
     def index():
