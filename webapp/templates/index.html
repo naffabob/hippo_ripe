@@ -16,6 +16,22 @@
 				</div>
 				<div class="col-4">
 					<h2>Provider Prefixes</h2>
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Prefix</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for prefix in prefixes %}
+							<tr>
+								<td>{{ prefix.prefix }}</td>
+								<td>{{ prefix.description }}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
