@@ -12,3 +12,13 @@ class Provider(db.Model):
 
     def __repr__(self):
         return f'<Provider {PROVIDER_AS} prefixes>'
+
+
+class Customers(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    autnum = db.Column(db.String, unique=True, nullable=False)
+    asset = db.Column(db.String, unique=True, nullable=True)
+    mntby = db.Column(db.String, unique=False, nullable=False)
+
+    def __repr__(self):
+        return f'<{PROVIDER_AS} Customer>'
