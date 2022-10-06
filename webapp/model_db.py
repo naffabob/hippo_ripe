@@ -1,24 +1,25 @@
 from flask_sqlalchemy import SQLAlchemy
 
-from webapp.settings import PROVIDER_AS
-
 db = SQLAlchemy()
 
 
-class Provider(db.Model):
+class Peer(db.Model):
+    __tablename__ = "peers"
     id = db.Column(db.Integer, primary_key=True)
-    prefix = db.Column(db.String, unique=True, nullable=False)
-    description = db.Column(db.String, unique=False, nullable=True)
+    asn = db.Column(db.String, unique=True, nullable=False)
+    asset = db.Column(db.String, unique=False, nullable=True)
+    client = db.Column(db.String, unique=False, nullable=True)
+    prefixes = db.relationship("Prefix")
 
     def __repr__(self):
-        return f'<Provider {PROVIDER_AS} prefixes>'
+        return f'<Peer {self.asn}>'
 
 
-class Customers(db.Model):
+class Prefix(db.Model):
+    __tablename__ = "prefixes"
     id = db.Column(db.Integer, primary_key=True)
-    autnum = db.Column(db.String, unique=True, nullable=False)
-    asset = db.Column(db.String, unique=True, nullable=True)
-    mntby = db.Column(db.String, unique=False, nullable=False)
+    prefix = db.Column(db.String, unique=False, nullable=False)
+    peer = db.Column(db.Integer, db.ForeignKey("peers.id", ondelete="CASCADE"), nullable=False)
 
     def __repr__(self):
-        return f'<{PROVIDER_AS} Customer>'
+        return f'<Prefix {self.prefix}>'

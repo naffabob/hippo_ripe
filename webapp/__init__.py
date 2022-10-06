@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 
-from webapp.model_db import db, Provider, Customers
+from webapp.model_db import db, Peer, Prefix
 
 
 def create_app():
@@ -11,12 +11,9 @@ def create_app():
     @app.route('/')
     def index():
         title = 'Provider RIPE DB'
-        provider_customers = Customers.query.all()
-        provider_prefixes = Provider.query.order_by(Provider.prefix).all()
-
+        provider_customers = Peer.query.all()
         return render_template('index.html',
                                page_title=title,
-                               prefixes=provider_prefixes,
                                customers=provider_customers,
                                )
     return app

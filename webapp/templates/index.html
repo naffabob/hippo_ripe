@@ -18,38 +18,22 @@
 						<tr>
 							<th scope="col">AS-NUM</th>
 							<th scope="col">AS-SET</th>
-							<th scope="col">MNT-BY</th>
+							<th scope="col">DESCRIPTION</th>
 						</tr>
 						</thead>
 						<tbody>
 						{% for customer in customers %}
 						<tr>
-							<td>{{ customer.autnum }}</td>
+							<td>{{ customer.asn }}</td>
 							<td>{{ customer.asset }}</td>
-							<td>{{ customer.mntby }}</td>
+							<td>{{ customer.client }}</td>
 						</tr>
 						{% endfor %}
 						</tbody>
 					</table>
 				</div>
 				<div class="col-4">
-					<h2>Provider Prefixes</h2>
-					<table class="table">
-						<thead>
-						<tr>
-							<th scope="col">Prefix</th>
-							<th scope="col">Description</th>
-						</tr>
-						</thead>
-						<tbody>
-						{% for prefix in prefixes %}
-						<tr>
-							<td>{{ prefix.prefix }}</td>
-							<td>{{ prefix.description }}</td>
-						</tr>
-						{% endfor %}
-						</tbody>
-					</table>
+					<h2>Provider Info</h2>
 				</div>
 			</div>
 		</div>
