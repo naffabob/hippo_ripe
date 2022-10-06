@@ -24,7 +24,7 @@
 						<tbody>
 						{% for customer in customers %}
 						<tr>
-							<td>{{ customer.asn }}</td>
+							<td><a href="{{ url_for('peer_view', peer_id=customer.id) }}">{{ customer.asn }}</a></td>
 							<td>{{ customer.asset }}</td>
 							<td>{{ customer.client }}</td>
 						</tr>
