@@ -1,6 +1,6 @@
 import requests
 
-from webapp.model_db import db
+from webapp.db import db
 from webapp.prefix.models import Prefix
 
 

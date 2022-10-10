@@ -1,4 +1,4 @@
-from webapp.model_db import db
+from webapp.db import db
 
 
 class Prefix(db.Model):

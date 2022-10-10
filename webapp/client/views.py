@@ -2,7 +2,7 @@ from flask import Blueprint, flash, render_template, redirect, url_for, request
 
 from webapp.client.forms import ClientForm
 from webapp.client.models import Client
-from webapp.model_db import db
+from webapp.db import db
 
 blueprint = Blueprint('client', __name__, url_prefix='/clients')
 

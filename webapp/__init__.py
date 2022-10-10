@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 
 from webapp.client.views import blueprint as client_blueprint
-from webapp.model_db import db
+from webapp.db import db
 from webapp.peer.views import blueprint as peer_blueprint
 from webapp.peer.models import Peer
 from webapp.prefix.views import blueprint as prefix_blueprint

@@ -1,6 +1,6 @@
 from flask import Blueprint, flash, request, render_template, redirect, url_for
 
-from webapp.model_db import db
+from webapp.db import db
 from webapp.peer.forms import PeerForm
 from webapp.peer.models import Peer
 
