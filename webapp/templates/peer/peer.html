@@ -38,7 +38,7 @@
 	<div class="col-6">
 		<h5>Client prefixes:</h5>
 		{% for prefix in peer.prefixes %}
-			<a href="{{ url_for('prefix_view', prefix_id=prefix.id) }}">{{ prefix }}</a><br>
+			<a href="{{ url_for('prefix.prefix_view', prefix_id=prefix.id) }}">{{ prefix }}</a><br>
 		{% endfor %}
 	</div>
 

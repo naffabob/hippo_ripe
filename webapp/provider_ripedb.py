@@ -1,6 +1,7 @@
 import requests
 
-from webapp.model_db import db, Prefix
+from webapp.model_db import db
+from webapp.prefix.models import Prefix
 
 
 def do_request(url: str) -> dict:

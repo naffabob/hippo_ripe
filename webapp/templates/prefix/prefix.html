@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+	<div class="alert alert-success" role="alert">{{ message }}</div>
+{% endfor %}
+
+<h4>Prefix settings</h4>
+<div class="row">
+	<div class="col-6">
+
+		<form method="post">
+			{{ form.hidden_tag() }}
+			<div class="mb-3">
+				{{ form.prefix.label }}
+				{{ form.prefix }}
+			</div>
+			<div class="mb-3">
+				{{ form.submit }}
+			</div>
+		</form>
+	</div>
+</div>
+
+{% endblock %}
