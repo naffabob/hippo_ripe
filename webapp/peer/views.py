@@ -1,9 +1,8 @@
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, flash, request, render_template, redirect, url_for
 
 from webapp.model_db import db
 from webapp.peer.forms import PeerForm
 from webapp.peer.models import Peer
-from webapp.client.models import Client
 
 blueprint = Blueprint('peer', __name__, url_prefix='/peers')
 
@@ -27,6 +26,7 @@ def peer_view(peer_id):
             peer.remark = peer_form.remark.data
             db.session.add(peer)
             db.session.commit()
+            flash('Данные успешно сохранены')
             return redirect(url_for('peer.peers_view'))
     return render_template('peer/peer.html', form=peer_form, peer=peer)
 
@@ -43,5 +43,6 @@ def add_peer_view():
             peer.client_id = peer_form.client.data
             db.session.add(peer)
             db.session.commit()
+            flash('Данные успешно сохранены')
             return redirect(url_for('peer.peers_view'))
     return render_template('peer/add_peer.html', form=peer_form, peer=peer)

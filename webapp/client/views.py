@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, flash, render_template, redirect, url_for, request
 
 from webapp.client.forms import ClientForm
 from webapp.client.models import Client
@@ -24,6 +24,7 @@ def client(client_id):
             client.name = client_form.name.data
             db.session.add(client)
             db.session.commit()
+            flash('Данные успешно сохранены')
             return redirect(url_for('client.clients'))
     return render_template('client/client.html', form=client_form, client=client)
 
@@ -37,5 +38,6 @@ def add_client():
             client.name = client_form.name.data
             db.session.add(client)
             db.session.commit()
+            flash('Данные успешно сохранены')
             return redirect(url_for('client.clients'))
     return render_template('client/add_client.html', form=client_form, client=client)
