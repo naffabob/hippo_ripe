@@ -1,27 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Prefix</title>
-	</head>
-	<body>
-		<form method="post">
-			{{ form.hidden_tag() }}
+{% extends "base.html" %}
 
-			<p>
-				{{ form.prefix.label }}<br>
-			</p>
-			{% if form.prefix.errors %}
-			<ul class="errors">
-				{% for error in form.prefix.errors %}
-				<li>{{ error }}</li>
-				{% endfor %}
-			</ul>
-			{% endif %}
-			{{ form.prefix }}
-			<p>
-				{{ form.submit }}
-			</p>
-		</form>
-	</body>
-</html>
+{% block content %}
+
+<form method="post">
+	{{ form.hidden_tag() }}
+	<p>
+		{{ form.prefix.label }}<br>
+	</p>
+	{% if form.prefix.errors %}
+	<ul class="errors">
+		{% for error in form.prefix.errors %}
+		<li>{{ error }}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+	{{ form.prefix }}
+	<p>
+		{{ form.submit }}
+	</p>
+</form>
+
+{% endblock %}

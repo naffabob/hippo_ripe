@@ -1,5 +1,5 @@
 from webapp import create_app
-from webapp.model_db import Peer
+from webapp.peer.models import Peer
 from webapp.provider_ripedb import get_prefixes, save_prefixes
 
 app = create_app()

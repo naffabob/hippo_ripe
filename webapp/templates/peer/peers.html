@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-6">
+		<h4>Provider peers</h4>
+	</div>
+	<div class="col-6 text-end">
+		<a class="btn btn-primary" href="{{ url_for('peer.add_peer_view')}}">Add new</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-6">
+		<table class="table">
+			<thead>
+			<tr>
+				<th scope="col">Peer ID</th>
+				<th scope="col">Peer AS</th>
+				<th scope="col">Peer ASSET</th>
+				<th scope="col">Client</th>
+				<th scope="col">Peer remark</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for peer in peers %}
+			<tr>
+				<td>{{ peer.id }}</td>
+				<td><a href="{{ url_for('peer.peer_view', peer_id=peer.id) }}">{{ peer.asn }}</a></td>
+				<td>{{ peer.asset }}</td>
+				<td>{{ peer.client or ''}}</td>
+				<td>{{ peer.remark }}</td>
+			</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{% endblock %}

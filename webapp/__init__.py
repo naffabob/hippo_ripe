@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
 
-from webapp.model_db import db, Peer, Prefix
-from webapp.forms import PeerForm, PrefixForm
+from webapp.client.views import blueprint as client_blueprint
+from webapp.forms import PrefixForm
+from webapp.model_db import db, Prefix
+from webapp.peer.views import blueprint as peer_blueprint
+from webapp.peer.models import Peer
 
 
 def create_app():
@@ -9,30 +12,14 @@ def create_app():
     app.config.from_pyfile('settings.py')
     db.init_app(app)
 
+    app.register_blueprint(client_blueprint)
+    app.register_blueprint(peer_blueprint)
+
     @app.route('/')
     def index():
         title = 'Provider RIPE DB'
-        provider_customers = Peer.query.all()
-        return render_template('index.html',
-                               page_title=title,
-                               customers=provider_customers,
-                               )
-
-    @app.route('/peer/<int:peer_id>', methods=['POST', 'GET'])
-    def peer_view(peer_id):
-        title = 'Peer settings'
-        peer = Peer.query.get(peer_id)
-        peer_form = PeerForm(obj=peer)
-        if request.method == 'POST':
-            peer_form = PeerForm()
-            if peer_form.validate_on_submit():
-                peer.asn = peer_form.asn.data
-                peer.asset = peer_form.asset.data
-                peer.client = peer_form.client.data
-                db.session.add(peer)
-                db.session.commit()
-                return redirect(url_for('peer_view', peer_id=peer.id))
-        return render_template('peer.html', page_title=title, form=peer_form, peer=peer)
+        clients = Peer.query.all()
+        return render_template('index.html', page_title=title, customers=clients)
 
     @app.route('/prefixes/<int:prefix_id>', methods=['POST', 'GET'])
     def prefix_view(prefix_id):

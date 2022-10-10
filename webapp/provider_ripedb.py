@@ -31,5 +31,5 @@ def save_prefixes(prefixes: list, peer: int):
     for prefix in prefixes:
         prefix_exist = Prefix.query.filter(Prefix.prefix == prefix).count()
         if not prefix_exist:
-            db.session.add(Prefix(prefix=prefix, peer=peer))
+            db.session.add(Prefix(prefix=prefix, peer_id=peer))
     db.session.commit()

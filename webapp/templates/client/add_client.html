@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h4>Client settings</h4>
+<div class="row">
+	<div class="col-4">
+		<form method="POST">
+			{{ form.hidden_tag() }}
+			<div class="mb-3">
+				{{ form.name.label }}
+				{{ form.name }}
+			</div>
+			<div class="mb-3">
+				{{ form.submit }}
+			</div>
+		</form>
+	</div>
+	<div class="col-8">
+	</div>
+</div>
+
+{% endblock %}
