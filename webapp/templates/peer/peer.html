@@ -36,7 +36,35 @@
 	</div>
 
 	<div class="col-6">
-		<h5>Client prefixes:</h5>
+		<table class="table">
+			<thead>
+			<tr>
+				<th scope="col">Current prefixes</th>
+				<th scope="col">New prefixes</th>
+				<th scope="col">Prefixes to delete</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>{{ peer_prefixes[peer.asn]['current'].count() }}</td>
+				<td>
+					{% if peer_prefixes[peer.asn]['new'].count() > 0 %}
+						{% for prefix in peer_prefixes[peer.asn]['new'] %}
+							<span class="text-success">{{ prefix }}</span> <br>
+						{% endfor %}
+					{% endif %}
+				</td>
+				<td>
+					{% if peer_prefixes[peer.asn]['todelete'].count() > 0 %}
+						{% for prefix in peer_prefixes[peer.asn]['todelete'] %}
+							<span class="text-danger">{{ prefix }}</span> <br>
+						{% endfor %}
+					{% endif %}
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<h5>Client current prefixes:</h5>
 		{% for prefix in peer.prefixes %}
 			<a href="{{ url_for('prefix.prefix_view', prefix_id=prefix.id) }}">{{ prefix }}</a><br>
 		{% endfor %}

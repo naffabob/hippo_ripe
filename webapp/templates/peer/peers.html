@@ -16,25 +16,29 @@
 </div>
 
 <div class="row">
-	<div class="col-6">
+	<div class="col-12">
 		<table class="table">
 			<thead>
 			<tr>
-				<th scope="col">Peer ID</th>
 				<th scope="col">Peer AS</th>
 				<th scope="col">Peer ASSET</th>
 				<th scope="col">Client</th>
 				<th scope="col">Peer remark</th>
+				<th scope="col">Current prefixes</th>
+				<th scope="col">New prefixes</th>
+				<th scope="col">Prefixes to delete</th>
 			</tr>
 			</thead>
 			<tbody>
 			{% for peer in peers %}
 			<tr>
-				<td>{{ peer.id }}</td>
 				<td><a href="{{ url_for('peer.peer_view', peer_id=peer.id) }}">{{ peer.asn }}</a></td>
-				<td>{{ peer.asset }}</td>
-				<td>{{ peer.client or ''}}</td>
+				<td>{{ peer.asset or '' }}</td>
+				<td>{{ peer.client or '' }}</td>
 				<td>{{ peer.remark }}</td>
+				<td>{{ peer_prefixes[peer.asn]['current'].count() }}</td>
+				<td>{{ peer_prefixes[peer.asn]['new'].count() }}</td>
+				<td>{{ peer_prefixes[peer.asn]['todelete'].count() }}</td>
 			</tr>
 			{% endfor %}
 			</tbody>
