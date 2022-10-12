@@ -3,6 +3,11 @@ from webapp.db import db
 
 class Prefix(db.Model):
     __tablename__ = "prefixes"
+
+    STATE_CURRENT = 'current'
+    STATE_NEW = 'new'
+    STATE_TODELETE = 'todelete'
+
     id = db.Column(db.Integer, primary_key=True)
     prefix = db.Column(db.String, unique=False, nullable=False)
     state = db.Column(db.String, nullable=False)

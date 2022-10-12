@@ -26,10 +26,6 @@
 				{{ form.remark }}
 			</div>
 			<div class="mb-3">
-				{{ form.client.label }}
-				{{ form.client }}
-			</div>
-			<div class="mb-3">
 				{{ form.submit }}
 			</div>
 		</form>
@@ -64,12 +60,7 @@
 			</tr>
 			</tbody>
 		</table>
-		<h5>Client current prefixes:</h5>
-		{% for prefix in peer.prefixes %}
-			<a href="{{ url_for('prefix.prefix_view', prefix_id=prefix.id) }}">{{ prefix }}</a><br>
-		{% endfor %}
 	</div>
-
 </div>
 
 {% endblock %}
