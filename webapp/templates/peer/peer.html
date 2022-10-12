@@ -46,20 +46,20 @@
 			</thead>
 			<tbody>
 			<tr>
-				<td>{{ peer_prefixes[peer.asn]['current'].count() }}</td>
 				<td>
-					{% if peer_prefixes[peer.asn]['new'].count() > 0 %}
-						{% for prefix in peer_prefixes[peer.asn]['new'] %}
-							<span class="text-success">{{ prefix }}</span> <br>
-						{% endfor %}
-					{% endif %}
+					{% for prefix in peer_prefixes['current'] %}
+						<a href="{{ url_for('prefix.prefix_view', prefix_id=prefix.id) }}">{{ prefix }}</a><br>
+					{% endfor %}
 				</td>
 				<td>
-					{% if peer_prefixes[peer.asn]['todelete'].count() > 0 %}
-						{% for prefix in peer_prefixes[peer.asn]['todelete'] %}
-							<span class="text-danger">{{ prefix }}</span> <br>
-						{% endfor %}
-					{% endif %}
+					{% for prefix in peer_prefixes['new'] %}
+						<span class="text-success">{{ prefix }}</span> <br>
+					{% endfor %}
+				</td>
+				<td>
+					{% for prefix in peer_prefixes['todelete'] %}
+						<span class="text-danger">{{ prefix }}</span> <br>
+					{% endfor %}
 				</td>
 			</tr>
 			</tbody>

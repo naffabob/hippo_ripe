@@ -35,10 +35,9 @@
 				<td><a href="{{ url_for('peer.peer_view', peer_id=peer.id) }}">{{ peer.asn }}</a></td>
 				<td>{{ peer.asset or '' }}</td>
 				<td>{{ peer.client or '' }}</td>
-				<td>{{ peer.remark }}</td>
-				<td>{{ peer_prefixes[peer.asn]['current'].count() }}</td>
-				<td>{{ peer_prefixes[peer.asn]['new'].count() }}</td>
-				<td>{{ peer_prefixes[peer.asn]['todelete'].count() }}</td>
+				<td>{{ peer_prefixes[peer.asn]['current'] | length }}</td>
+				<td>{{ peer_prefixes[peer.asn]['new'] | length }}</td>
+				<td>{{ peer_prefixes[peer.asn]['todelete'] | length }}</td>
 			</tr>
 			{% endfor %}
 			</tbody>

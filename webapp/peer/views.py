@@ -14,10 +14,11 @@ def peers_view():
     peers = Peer.query.all()
     peer_prefixes = {}
     for peer in peers:
+        prefixes = peer.prefixes
         peer_prefixes[peer.asn] = {
-            'current': Prefix.query.filter(Prefix.peer_id == peer.id, Prefix.state == 'current'),
-            'new': Prefix.query.filter(Prefix.peer_id == peer.id, Prefix.state == 'new'),
-            'todelete': Prefix.query.filter(Prefix.peer_id == peer.id, Prefix.state == 'todelete'),
+            'current': [prefix for prefix in prefixes if prefix.state == prefix.STATE_CURRENT],
+            'new': [prefix for prefix in prefixes if prefix.state == prefix.STATE_NEW],
+            'todelete': [prefix for prefix in prefixes if prefix.state == prefix.STATE_TODELETE]
         }
 
     return render_template('peer/peers.html', page=page, peers=peers, peer_prefixes=peer_prefixes)
@@ -27,13 +28,11 @@ def peers_view():
 def peer_view(peer_id):
     peer = Peer.query.get(peer_id)
     peer_form = PeerForm(obj=peer)
+    prefixes = peer.prefixes
     peer_prefixes = {
-        peer.asn:
-            {
-                'current': Prefix.query.filter(Prefix.peer_id == peer.id, Prefix.state == 'current'),
-                'new': Prefix.query.filter(Prefix.peer_id == peer.id, Prefix.state == 'new'),
-                'todelete': Prefix.query.filter(Prefix.peer_id == peer.id, Prefix.state == 'todelete')
-            }
+        'current': [prefix for prefix in prefixes if prefix.state == prefix.STATE_CURRENT],
+        'new': [prefix for prefix in prefixes if prefix.state == prefix.STATE_NEW],
+        'todelete': [prefix for prefix in prefixes if prefix.state == prefix.STATE_TODELETE]
     }
 
     if request.method == 'POST':
