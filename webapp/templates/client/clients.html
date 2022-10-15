@@ -19,13 +19,15 @@
 		<table class="table">
 			<thead>
 			<tr>
-				<th scope="col">Client name</th>
+				<th scope="col">Name</th>
+				<th scope="col">Total peers</th>
 			</tr>
 			</thead>
 			<tbody>
 			{% for client in clients %}
 			<tr>
 				<td><a href="{{ url_for('client.client', client_id=client.id) }}"> {{ client.name }}</a></td>
+				<td>{{ client.total_peers }}</td>
 			</tr>
 			{% endfor %}
 			</tbody>

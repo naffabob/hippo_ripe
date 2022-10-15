@@ -12,7 +12,7 @@ class Prefix(db.Model):
     prefix = db.Column(db.String, unique=False, nullable=False)
     state = db.Column(db.String, nullable=False)
     peer_id = db.Column(db.Integer, db.ForeignKey("peers.id", ondelete="CASCADE"), nullable=False)
-    peer = db.relationship("Peer", back_populates='prefixes')
+    peer = db.relationship("Peer")
 
     def __repr__(self):
         return f'<Prefix {self.prefix}>'

@@ -1,4 +1,5 @@
 from flask import Blueprint, flash, render_template, redirect, url_for, request
+from sqlalchemy.sql import func
 
 from webapp.client.forms import ClientForm
 from webapp.client.models import Client
@@ -9,9 +10,14 @@ blueprint = Blueprint('client', __name__, url_prefix='/clients')
 
 @blueprint.route('/')
 def clients():
-    clients = Client.query.all()
+    all_clients = db.session.query(
+        Client.id,
+        Client.name,
+        func.count(Client.peers).label('total_peers'),
+    ).join(Client.peers).group_by(Client.name)
+
     page = 'clients'
-    return render_template('client/clients.html', clients=clients, page=page)
+    return render_template('client/clients.html', clients=all_clients, page=page)
 
 
 @blueprint.route('/<int:client_id>', methods=['POST', 'GET'])
