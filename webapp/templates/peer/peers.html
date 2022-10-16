@@ -30,15 +30,15 @@
 			</tr>
 			</thead>
 			<tbody>
-			{% for peer in peers %}
+			{% for id, asn, asset, client_name, remark, current, new, todelete in peers %}
 			<tr>
-				<td><a href="{{ url_for('peer.peer_view', peer_id=peer.id) }}">{{ peer.asn }}</a></td>
-				<td>{{ peer.asset or '' }}</td>
-				<td>{{ peer.remark }}</td>
-				<td>{{ peer.client or '' }}</td>
-				<td>{{ peer_prefixes[peer.asn]['current'] | length }}</td>
-				<td>{{ peer_prefixes[peer.asn]['new'] | length }}</td>
-				<td>{{ peer_prefixes[peer.asn]['todelete'] | length }}</td>
+				<td><a href="{{ url_for('peer.peer_view', peer_id=id) }}">{{ asn }}</a></td>
+				<td>{{ asset or '' }}</td>
+				<td>{{ client_name or '' }}</td>
+				<td>{{ remark }}</td>
+				<td>{{ current }}</td>
+				<td>{{ new }}</td>
+				<td>{{ todelete }}</td>
 			</tr>
 			{% endfor %}
 			</tbody>
