@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+	<div class="alert alert-success" role="alert">{{ message }}</div>
+{% endfor %}
+
+<div class="row">
+	<div class="col-6">
+		<h4>Provider peers</h4>
+	</div>
+	<div class="col-6 text-end">
+		<a class="btn btn-primary" href="{{ url_for('peer.add_peer_view')}}">Add new</a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+		<table class="table">
+			<thead>
+			<tr>
+				<th scope="col">AS</th>
+				<th scope="col">ASSET</th>
+				<th scope="col">Client</th>
+				<th scope="col">Remark</th>
+				<th scope="col">Current prefixes</th>
+				<th scope="col">New prefixes</th>
+				<th scope="col">Prefixes to delete</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for peer in peers %}
+			<tr>
+				<td><a href="{{ url_for('peer.peer_view', peer_id=peer.id) }}">{{ peer.asn }}</a></td>
+				<td>{{ peer.asset or '' }}</td>
+				<td>{{ peer.remark }}</td>
+				<td>{{ peer.client or '' }}</td>
+				<td>{{ peer_prefixes[peer.asn]['current'] | length }}</td>
+				<td>{{ peer_prefixes[peer.asn]['new'] | length }}</td>
+				<td>{{ peer_prefixes[peer.asn]['todelete'] | length }}</td>
+			</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{% endblock %}

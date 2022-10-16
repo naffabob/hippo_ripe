@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+	<div class="alert alert-success" role="alert">{{ message }}</div>
+{% endfor %}
+
+<div class="row">
+	<div class="col-6">
+		<h4>Provider clients</h4>
+	</div>
+	<div class="col-6 text-end">
+		<a class="btn btn-primary" href="{{ url_for('client.add_client')}}">Add new</a>
+	</div>
+</div>
+<div class="row">
+	<div class="col-6">
+		<table class="table">
+			<thead>
+			<tr>
+				<th scope="col">Client name</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for client in clients %}
+			<tr>
+				<td><a href="{{ url_for('client.client', client_id=client.id) }}"> {{ client.name }}</a></td>
+			</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}
