@@ -1,4 +1,5 @@
 from flask import Blueprint, flash, request, render_template, redirect, url_for
+from sqlalchemy.exc import IntegrityError
 
 from webapp.db import db
 from webapp.peer.forms import PeerForm
@@ -41,8 +42,13 @@ def peer_view(peer_id):
             peer.asset = peer_form.asset.data
             peer.remark = peer_form.remark.data
             db.session.add(peer)
-            db.session.commit()
-            flash('Данные успешно сохранены')
+            try:
+                db.session.commit()
+            except IntegrityError:
+                flash('Такой клиент уже существует', category='error')
+                return redirect(url_for('peer.peer_view', peer_id=peer_id))
+
+            flash('Данные успешно сохранены', category='success')
             return redirect(url_for('peer.peers_view'))
     return render_template('peer/peer.html', form=peer_form, peer=peer, peer_prefixes=peer_prefixes)
 
@@ -57,7 +63,13 @@ def add_peer_view():
             peer.asset = peer_form.asset.data
             peer.remark = peer_form.remark.data
             db.session.add(peer)
-            db.session.commit()
-            flash('Данные успешно сохранены')
+            try:
+                db.session.commit()
+            except IntegrityError:
+                flash('Такой клиент уже существует', category='error')
+                return redirect(url_for('peer.add_peer_view'))
+
+            flash('Данные успешно сохранены', category='success')
             return redirect(url_for('peer.peers_view'))
+
     return render_template('peer/add_peer.html', form=peer_form, peer=peer)

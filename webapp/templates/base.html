@@ -8,9 +8,23 @@
 	</head>
 	<body>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
 		{% include 'menu.html' %}
+
 		<div class="container mt-3">
+
+			{% for cat, message in get_flashed_messages(True) %}
+				{% if cat == 'error' %}
+					<div class="alert alert-danger" role="alert">{{ message }}</div>
+				{% elif cat == 'success' %}
+					<div class="alert alert-success" role="alert">{{ message }}</div>
+				{% else %}
+					<div class="alert alert-primary" role="alert">{{ message }}</div>
+				{% endif %}
+			{% endfor %}
+
 			{% block content %}{% endblock %}
+
 		</div>
 	</body>
 </html>
