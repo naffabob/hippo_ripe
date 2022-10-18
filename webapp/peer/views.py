@@ -38,7 +38,7 @@ def peers_view():
                 else_=None
             )
         ).label(Prefix.STATE_TODELETE),
-    ).join(Peer.prefixes, Peer.client).group_by(Peer.id)
+    ).join(Peer.prefixes, Peer.client, isouter=True).group_by(Peer.id)
 
     return render_template('peer/peers.html', page=page, peers=peers)
 
@@ -46,7 +46,13 @@ def peers_view():
 @blueprint.route('/<int:peer_id>', methods=['POST', 'GET'])
 def peer_view(peer_id):
     peer = Peer.query.get(peer_id)
+
     peer_form = PeerForm(obj=peer)
+    clients = Client.query.all()
+    choices = [(0, '----')] + [(c.id, c.name) for c in clients]  # BAD zero first value
+    peer_form.client.choices = choices
+    peer_form.client.data = peer.client.id
+
     prefixes = peer.prefixes
     peer_prefixes = {
         'current': [prefix for prefix in prefixes if prefix.state == prefix.STATE_CURRENT],
@@ -56,9 +62,11 @@ def peer_view(peer_id):
 
     if request.method == 'POST':
         peer_form = PeerForm()
+        peer_form.client.choices = choices
         if peer_form.validate_on_submit():
             peer.asn = peer_form.asn.data
             peer.asset = peer_form.asset.data
+            peer.client_id = peer_form.client.data
             peer.remark = peer_form.remark.data
             db.session.add(peer)
             db.session.commit()
@@ -70,12 +78,18 @@ def peer_view(peer_id):
 @blueprint.route('/add', methods=['POST', 'GET'])
 def add_peer_view():
     peer = Peer()
+
     peer_form = PeerForm()
+    clients = Client.query.all()
+    choices = [(0, '----')] + [(c.id, c.name) for c in clients]  # BAD zero first value
+    peer_form.client.choices = choices
+
     if request.method == 'POST':
         if peer_form.validate_on_submit():
             peer.asn = peer_form.asn.data
             peer.asset = peer_form.asset.data
             peer.remark = peer_form.remark.data
+            peer.client_id = peer_form.client.data
             db.session.add(peer)
             db.session.commit()
             flash('Данные успешно сохранены')

@@ -7,7 +7,7 @@ class Peer(db.Model):
     asn = db.Column(db.String, unique=True, nullable=False)
     asset = db.Column(db.String, unique=False, nullable=True)
     remark = db.Column(db.String, unique=False, nullable=True)
-    client_id = db.Column(db.Integer, db.ForeignKey("clients.id", ondelete="CASCADE"), nullable=True)
+    client_id = db.Column(db.Integer, db.ForeignKey("clients.id", ondelete="CASCADE"), nullable=False)
     client = db.relationship("Client", back_populates='peers')
     prefixes = db.relationship("Prefix", back_populates='peer', lazy='joined')
 
