@@ -95,3 +95,8 @@ def add_peer_view():
             flash('Данные успешно сохранены')
             return redirect(url_for('peer.peers_view'))
     return render_template('peer/add_peer.html', form=peer_form, peer=peer)
+
+
+@blueprint.route('/<int:peer_id>/config')
+def peer_config(peer_id):
+    return render_template('peer/config.html')

@@ -27,6 +27,7 @@
 				<th scope="col">Current prefixes</th>
 				<th scope="col">New prefixes</th>
 				<th scope="col">Prefixes to delete</th>
+				<th scope="col">Config</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -39,6 +40,7 @@
 				<td>{{ current }}</td>
 				<td>{{ new }}</td>
 				<td>{{ todelete }}</td>
+				<td><a class="btn btn-sm btn-warning" href="{{ url_for('peer.peer_config', peer_id=id)}}">Create config</a></td>
 			</tr>
 			{% endfor %}
 			</tbody>
