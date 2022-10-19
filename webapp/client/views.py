@@ -29,6 +29,7 @@ def client(client_id):
     return render_template('client/client.html', form=client_form, client=client)
 
 
+
 @blueprint.route('/add', methods=['POST', 'GET'])
 def add_client():
     client = Client()
