@@ -17,6 +17,9 @@ def clients():
 @blueprint.route('/<int:client_id>', methods=['POST', 'GET'])
 def client(client_id):
     client = Client.query.get(client_id)
+    if not client:
+        abort(404)
+
     client_form = ClientForm(obj=client)
     if request.method == 'POST':
         client_form = ClientForm()

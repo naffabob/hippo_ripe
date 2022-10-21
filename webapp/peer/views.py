@@ -1,6 +1,6 @@
 from datetime import date
 
-from flask import Blueprint, flash, request, render_template, redirect, url_for, Response
+from flask import abort, Blueprint, flash, request, render_template, redirect, url_for, Response
 from sqlalchemy.sql import func
 from sqlalchemy.sql.expression import case
 
@@ -48,6 +48,8 @@ def peers_view():
 @blueprint.route('/<int:peer_id>', methods=['POST', 'GET'])
 def peer_view(peer_id):
     peer = Peer.query.get(peer_id)
+    if not peer:
+        abort(404)
 
     peer_form = PeerForm(obj=peer)
     clients = Client.query.all()
@@ -102,6 +104,8 @@ def add_peer_view():
 @blueprint.route('/<int:peer_id>/config')
 def peer_config_view(peer_id):
     peer = Peer.query.get(peer_id)
+    if not peer:
+        abort(404)
 
     today_date = date.today().strftime('%Y-%m-%d')
 
@@ -117,6 +121,8 @@ def peer_config_view(peer_id):
 @blueprint.route('/<int:peer_id>/config_plain')
 def peer_plain_config_view(peer_id):
     peer = Peer.query.get(peer_id)
+    if not peer:
+        abort(404)
 
     today_date = date.today().strftime('%Y-%m-%d')
 

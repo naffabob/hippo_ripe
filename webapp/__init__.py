@@ -15,6 +15,7 @@ def create_app():
     app.register_blueprint(client_blueprint)
     app.register_blueprint(peer_blueprint)
     app.register_blueprint(prefix_blueprint)
+    app.register_error_handler(404, page_not_found)
 
     @app.route('/')
     def index():
@@ -22,3 +23,7 @@ def create_app():
         return render_template('index.html', page_title=title)
 
     return app
+
+
+def page_not_found(e):
+    return render_template('404.html'), 404
