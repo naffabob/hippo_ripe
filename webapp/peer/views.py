@@ -65,6 +65,13 @@ def peer_view(peer_id):
     }
 
     if request.method == 'POST':
+        action = request.form.get("action", None)
+        if action == 'delete_peer':
+            db.session.delete(peer)
+            db.session.commit()
+            flash('Peer deleted', category='success')
+            return redirect(url_for('peer.peers_view'))
+
         peer_form = PeerForm()
         peer_form.client.choices = choices
         if peer_form.validate_on_submit():
