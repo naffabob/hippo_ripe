@@ -1,4 +1,6 @@
-from flask import Blueprint, flash, request, render_template, redirect, url_for
+from datetime import date
+
+from flask import Blueprint, flash, request, render_template, redirect, url_for, Response
 from sqlalchemy.sql import func
 from sqlalchemy.sql.expression import case
 
@@ -98,5 +100,30 @@ def add_peer_view():
 
 
 @blueprint.route('/<int:peer_id>/config')
-def peer_config(peer_id):
-    return render_template('peer/config.html')
+def peer_config_view(peer_id):
+    peer = Peer.query.get(peer_id)
+
+    today_date = date.today().strftime('%Y-%m-%d')
+
+    config_text = render_template(
+        'peer/config.txt',
+        date=today_date,
+        peer=peer
+    )
+
+    return render_template('peer/config.html', config_text=config_text, peer=peer)
+
+
+@blueprint.route('/<int:peer_id>/config_plain')
+def peer_plain_config_view(peer_id):
+    peer = Peer.query.get(peer_id)
+
+    today_date = date.today().strftime('%Y-%m-%d')
+
+    output = render_template(
+        'peer/config.txt',
+        date=today_date,
+        peer=peer
+    )
+
+    return Response(output, mimetype='text/plain')

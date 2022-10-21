@@ -1,13 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <h4>Peer prefixes config</h4>
 <div class="row">
-	<div class="col-4">
-		CONFIG CONTENT
-	</div>
-	<div class="col-8">
+	<div class="col-12">
+		<pre>{% include 'peer/config.txt' %}</pre>
 	</div>
 </div>
 
