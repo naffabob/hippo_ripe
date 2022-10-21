@@ -116,13 +116,7 @@ def peer_config_view(peer_id):
 
     today_date = date.today().strftime('%Y-%m-%d')
 
-    config_text = render_template(
-        'peer/config.txt',
-        date=today_date,
-        peer=peer
-    )
-
-    return render_template('peer/config.html', config_text=config_text, peer=peer)
+    return render_template('peer/config.html', peer=peer, date=today_date)
 
 
 @blueprint.route('/<int:peer_id>/config_plain')
