@@ -5,34 +5,7 @@
 <h4>Peer settings</h4>
 <div class="row">
 	<div class="col-4">
-
-		<form method="POST">
-			{{ form.hidden_tag() }}
-			<div class="mb-3">
-				{{ form.asn.label }}
-				{{ form.asn }}
-				{% if form.asn.errors %}
-					{% for error in form.asn.errors %}
-						<p class="text-danger">{{ error }}</p>
-					{% endfor %}
-				{% endif %}
-			</div>
-			<div class="mb-3">
-				{{ form.asset.label }}
-				{{ form.asset }}
-			</div>
-			<div class="mb-3">
-				{{ form.remark.label }}
-				{{ form.remark }}
-			</div>
-			<div class="mb-3">
-				{{ form.client.label }}
-				{{ form.client }}
-			</div>
-			<div class="mb-3">
-				{{ form.submit }}
-			</div>
-		</form>
+		{% include 'peer/peer_form.html' %}
 	</div>
 	<div class="col-8">
 	</div>
