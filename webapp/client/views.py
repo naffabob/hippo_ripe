@@ -27,7 +27,7 @@ def client_view(client_id):
             db.session.delete(client)
             db.session.commit()
             flash('Client deleted', category='success')
-            return redirect(url_for('client.clients'))
+            return redirect(url_for('client.clients_view'))
 
         client_form = ClientForm()
         if client_form.validate_on_submit():

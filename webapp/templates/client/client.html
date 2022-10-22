@@ -6,14 +6,14 @@
 <div class="row">
 	<div class="col-4">
 		<form method="POST">
-			{{ form.hidden_tag() }}
+			{% include 'client/client_form.html' %}
 			<div class="mb-3">
-				{{ form.name.label }}
-				{{ form.name }}
-			</div>
-			<div class="mb-3">
-				{{ form.submit }}
-				<button class="btn btn-danger" name="action" value="delete_client">Delete</button>
+				<button type="submit" class="btn btn-success" name="action" value="update_peer">
+					<i class="bi bi-check-circle"></i> Update
+				</button>
+				<button class="btn btn-danger" name="action" value="delete_client">
+					<i class="bi bi-dash-circle"></i> Delete
+				</button>
 			</div>
 		</form>
 	</div>

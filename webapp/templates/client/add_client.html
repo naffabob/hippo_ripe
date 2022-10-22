@@ -4,18 +4,16 @@
 
 <h4>Client settings</h4>
 <div class="row">
-	<div class="col-4">
-		<form method="POST">
-			{{ form.hidden_tag() }}
+	<form method="POST">
+		<div class="col-4">
+			{% include 'client/client_form.html' %}
 			<div class="mb-3">
-				{{ form.name.label }}
-				{{ form.name }}
+				<button type="submit" class="btn btn-success" name="action" value="add_client">
+					<i class="bi bi-check-circle"></i> Create
+				</button>
 			</div>
-			<div class="mb-3">
-				{{ form.submit }}
-			</div>
-		</form>
-	</div>
+		</div>
+	</form>
 	<div class="col-8">
 	</div>
 </div>
