@@ -11,7 +11,7 @@
 		<h4>Provider clients</h4>
 	</div>
 	<div class="col-6 text-end">
-		<a class="btn btn-primary" href="{{ url_for('client.add_client')}}">Add new</a>
+		<a class="btn btn-primary" href="{{ url_for('client.add_client_view')}}">Add new</a>
 	</div>
 </div>
 <div class="row">
@@ -25,7 +25,7 @@
 			<tbody>
 			{% for client in clients %}
 			<tr>
-				<td><a href="{{ url_for('client.client', client_id=client.id) }}"> {{ client.name }}</a></td>
+				<td><a href="{{ url_for('client.client_view', client_id=client.id) }}"> {{ client.name }}</a></td>
 			</tr>
 			{% endfor %}
 			</tbody>
