@@ -1,6 +1,6 @@
 policy-options {
 replace:
- /* -- (RPSL: {{ peer.asset or '' }} {{ date }}) -- */
+ /* -- (RPSL: {{ peer.asset or peer.asn }} {{ date }}) -- */
 policy-statement import-d{{ peer.asn }} {
     term blackhole-filter {
         from {
@@ -31,8 +31,8 @@ policy-statement import-d{{ peer.asn }} {
 }
 policy-options {
 replace:
- /* -- [  ] (RPSL: {{ date }}) -- */
+ /* -- (RPSL: {{ peer.asset or peer.asn }} {{ date }}) -- */
 prefix-list pl{{ peer.asn }} {
-    {% for prefix in peer.prefixes %}{{ prefix }};
+    {% for prefix in peer.active_prefixes() %}{{ prefix }};
     {% endfor %}}
 }

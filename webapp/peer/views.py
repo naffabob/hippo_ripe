@@ -127,10 +127,6 @@ def peer_plain_config_view(peer_id):
 
     today_date = date.today().strftime('%Y-%m-%d')
 
-    output = render_template(
-        'peer/config.txt',
-        date=today_date,
-        peer=peer
-    )
+    output = render_template('peer/config.txt', peer=peer, date=today_date)
 
     return Response(output, mimetype='text/plain')

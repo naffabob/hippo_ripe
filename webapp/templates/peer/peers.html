@@ -40,7 +40,7 @@
 				<td class="text-center"><span class="badge text-bg-primary">{{ current or '' }}</span></td>
 				<td class="text-center"><span class="badge text-bg-success">{{ new or '' }}</span></td>
 				<td class="text-center"><span class="badge text-bg-danger">{{ todelete or '' }}</span></td>
-				<td><a class="btn btn-sm btn-warning" href="{{ url_for('peer.peer_config_view', peer_id=id)}}">Create config</a></td>
+				<td><a class="btn btn-sm btn-warning" href="{{ url_for('peer.peer_config_view', peer_id=id)}}">Config</a></td>
 			</tr>
 			{% endfor %}
 			</tbody>
