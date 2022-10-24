@@ -31,4 +31,3 @@ class PeerForm(FlaskForm):
     current_prefixes = StringField(label='Актуальные префиксы', render_kw=render_kw)
     new_prefixes = StringField(label='Новые префиксы', render_kw=render_kw)
     todelete_prefixes = StringField(label='Префиксы для удаления', render_kw=render_kw)
-    submit = SubmitField(label='Save', render_kw={"class": "btn btn-primary"})

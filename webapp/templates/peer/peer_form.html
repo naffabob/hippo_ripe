@@ -1,34 +1,27 @@
-<form method="POST">
-	{{ form.hidden_tag() }}
-	<div class="mb-3">
-		{{ form.asn.label }}
-		{{ form.asn }}
-		{% if form.asn.errors %}
-			{% for error in form.asn.errors %}
-				<p class="text-danger">{{ error }}</p>
-			{% endfor %}
-		{% endif %}
-	</div>
-	<div class="mb-3">
-		{{ form.asset.label }}
-		{{ form.asset }}
-	</div>
-	<div class="mb-3">
-		{{ form.remark.label }}
-		{{ form.remark }}
-	</div>
-	<div class="mb-3">
-		{{ form.client.label }}
-		{{ form.client }}
-		{% if form.client.errors %}
-			{% for error in form.client.errors %}
-				<p class="text-danger">{{ error }}</p>
-			{% endfor %}
-		{% endif %}
-	</div>
-	<div class="mb-3">
-		{{ form.submit }}
-		<button class="btn btn-danger" name="action" value="delete_peer">Delete</button>
-		<a class="btn btn-secondary" href="{{ url_for('peer.peers_view')}}">Back</a>
-	</div>
-</form>
+{{ form.hidden_tag() }}
+<div class="mb-3">
+	{{ form.asn.label }}
+	{{ form.asn }}
+	{% if form.asn.errors %}
+		{% for error in form.asn.errors %}
+			<p class="text-danger">{{ error }}</p>
+		{% endfor %}
+	{% endif %}
+</div>
+<div class="mb-3">
+	{{ form.asset.label }}
+	{{ form.asset }}
+</div>
+<div class="mb-3">
+	{{ form.remark.label }}
+	{{ form.remark }}
+</div>
+<div class="mb-3">
+	{{ form.client.label }}
+	{{ form.client }}
+	{% if form.client.errors %}
+		{% for error in form.client.errors %}
+			<p class="text-danger">{{ error }}</p>
+		{% endfor %}
+	{% endif %}
+</div>

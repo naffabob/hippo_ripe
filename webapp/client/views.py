@@ -10,19 +10,14 @@ blueprint = Blueprint('client', __name__, url_prefix='/clients')
 
 
 @blueprint.route('/')
-def clients():
-    all_clients = db.session.query(
-        Client.id,
-        Client.name,
-        func.count(Client.peers).label('total_peers'),
-    ).join(Client.peers, isouter=True).group_by(Client.name)
-
+def clients_view():
+    clients = Client.query.all()
     page = 'clients'
-    return render_template('client/clients.html', clients=all_clients, page=page)
+    return render_template('client/clients.html', clients=clients, page=page)
 
 
 @blueprint.route('/<int:client_id>', methods=['POST', 'GET'])
-def client(client_id):
+def client_view(client_id):
     client = Client.query.get(client_id)
     if not client:
         abort(404)
@@ -34,7 +29,7 @@ def client(client_id):
             db.session.delete(client)
             db.session.commit()
             flash('Client deleted', category='success')
-            return redirect(url_for('client.clients'))
+            return redirect(url_for('client.clients_view'))
 
         client_form = ClientForm()
         if client_form.validate_on_submit():
@@ -44,16 +39,16 @@ def client(client_id):
                 db.session.commit()
             except IntegrityError:
                 flash('Такой клиент уже существует', category='error')
-                return redirect(url_for('client.client', client_id=client_id))
+                return redirect(url_for('client.client_view', client_id=client_id))
 
             flash('Данные успешно сохранены', category='success')
-            return redirect(url_for('client.clients'))
+            return redirect(url_for('client.clients_view'))
 
     return render_template('client/client.html', form=client_form, client=client)
 
 
 @blueprint.route('/add', methods=['POST', 'GET'])
-def add_client():
+def add_client_view():
     client = Client()
     client_form = ClientForm()
     if request.method == 'POST':
@@ -64,8 +59,8 @@ def add_client():
                 db.session.commit()
             except IntegrityError:
                 flash(f'Такой клиент уже существует', category='error')
-                return redirect(url_for('client.add_client'))
+                return redirect(url_for('client.add_client_view'))
 
             flash('Данные успешно сохранены', category='success')
-            return redirect(url_for('client.clients'))
+            return redirect(url_for('client.clients_view'))
     return render_template('client/add_client.html', form=client_form, client=client)

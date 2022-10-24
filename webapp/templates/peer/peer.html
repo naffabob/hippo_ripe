@@ -5,10 +5,17 @@
 <h4>Peer settings</h4>
 <div class="row">
 	<div class="col-6">
-		{% include 'peer/peer_form.html' %}
-		<a class="btn btn-warning" href="{{ url_for('peer.peer_config_view', peer_id=peer.id)}}">
-			<i class="bi bi-card-text"></i> Policy Config
-		</a>
+		<form method="POST">
+			{% include 'peer/peer_form.html' %}
+			<div class="mb-3">
+				<button type="submit" class="btn btn-success" name="action" value="update_peer">
+					<i class="bi bi-check-circle"></i> Update
+				</button>
+				<button class="btn btn-danger" name="action" value="delete_client">
+					<i class="bi bi-dash-circle"></i> Delete
+				</button>
+			</div>
+		</form>
 	</div>
 
 	<div class="col-6">
