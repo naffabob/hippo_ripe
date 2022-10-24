@@ -1,6 +1,6 @@
-from flask import Blueprint, flash, render_template, redirect, url_for, request
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.sql import func
+from flask import abort, Blueprint, flash, render_template, redirect, url_for, request
 
 from webapp.client.forms import ClientForm
 from webapp.client.models import Client
@@ -24,8 +24,18 @@ def clients():
 @blueprint.route('/<int:client_id>', methods=['POST', 'GET'])
 def client(client_id):
     client = Client.query.get(client_id)
+    if not client:
+        abort(404)
+
     client_form = ClientForm(obj=client)
     if request.method == 'POST':
+        action = request.form.get("action", None)
+        if action == 'delete_client':
+            db.session.delete(client)
+            db.session.commit()
+            flash('Client deleted', category='success')
+            return redirect(url_for('client.clients'))
+
         client_form = ClientForm()
         if client_form.validate_on_submit():
             client.name = client_form.name.data

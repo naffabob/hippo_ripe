@@ -1,0 +1,38 @@
+policy-options {
+replace:
+ /* -- (RPSL: {{ peer.asset or peer.asn }} {{ date }}) -- */
+policy-statement import-d{{ peer.asn }} {
+    term blackhole-filter {
+        from {
+            community blackhole-community;
+            route-filter 0.0.0.0/0 prefix-length-range /32-/32;
+            prefix-list-filter pl{{ peer.asn }} orlonger;
+        }
+        then {
+            local-preference 700;
+            community set blackhole-community;
+            community add type-customer;
+            community add site-identity;
+            community add control-no-export;
+            next-hop discard;
+            accept;
+        }
+    }
+    term prefix-filter {
+        from {
+            prefix-list-filter pl{{ peer.asn }} exact;
+        }
+        then next policy;
+        }
+           term reject {
+        then reject;
+    }
+   }
+}
+policy-options {
+replace:
+ /* -- (RPSL: {{ peer.asset or peer.asn }} {{ date }}) -- */
+prefix-list pl{{ peer.asn }} {
+    {% for prefix in peer.active_prefixes() %}{{ prefix }};
+    {% endfor %}}
+}

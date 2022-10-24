@@ -1,4 +1,6 @@
 from webapp.db import db
+from webapp.prefix.models import Prefix
+from sqlalchemy import or_
 
 
 class Peer(db.Model):
@@ -9,7 +11,13 @@ class Peer(db.Model):
     remark = db.Column(db.String, unique=False, nullable=True)
     client_id = db.Column(db.Integer, db.ForeignKey("clients.id", ondelete="CASCADE"), nullable=True)
     client = db.relationship("Client")
-    prefixes = db.relationship("Prefix", lazy='joined')
+    prefixes = db.relationship("Prefix", lazy='joined', cascade='all, delete')
 
     def __repr__(self):
         return f'<Peer {self.asn}>'
+
+    def active_prefixes(self):
+        return Prefix.query.filter(
+            or_(Prefix.state == Prefix.STATE_NEW, Prefix.state == Prefix.STATE_CURRENT),
+            Prefix.peer == self,
+        )

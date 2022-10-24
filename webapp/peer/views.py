@@ -1,4 +1,6 @@
-from flask import Blueprint, flash, request, render_template, redirect, url_for
+from datetime import date
+
+from flask import abort, Blueprint, flash, request, render_template, redirect, url_for, Response
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.sql import func
 from sqlalchemy.sql.expression import case
@@ -47,6 +49,8 @@ def peers_view():
 @blueprint.route('/<int:peer_id>', methods=['POST', 'GET'])
 def peer_view(peer_id):
     peer = Peer.query.get(peer_id)
+    if not peer:
+        abort(404)
 
     peer_form = PeerForm(obj=peer)
     clients = Client.query.all()
@@ -62,6 +66,13 @@ def peer_view(peer_id):
     }
 
     if request.method == 'POST':
+        action = request.form.get("action", None)
+        if action == 'delete_peer':
+            db.session.delete(peer)
+            db.session.commit()
+            flash('Peer deleted', category='success')
+            return redirect(url_for('peer.peers_view'))
+
         peer_form = PeerForm()
         peer_form.client.choices = choices
         if peer_form.validate_on_submit():
@@ -110,5 +121,24 @@ def add_peer_view():
 
 
 @blueprint.route('/<int:peer_id>/config')
-def peer_config(peer_id):
-    return render_template('peer/config.html')
+def peer_config_view(peer_id):
+    peer = Peer.query.get(peer_id)
+    if not peer:
+        abort(404)
+
+    today_date = date.today().strftime('%Y-%m-%d')
+
+    return render_template('peer/config.html', peer=peer, date=today_date)
+
+
+@blueprint.route('/<int:peer_id>/config_plain')
+def peer_plain_config_view(peer_id):
+    peer = Peer.query.get(peer_id)
+    if not peer:
+        abort(404)
+
+    today_date = date.today().strftime('%Y-%m-%d')
+
+    output = render_template('peer/config.txt', peer=peer, date=today_date)
+
+    return Response(output, mimetype='text/plain')

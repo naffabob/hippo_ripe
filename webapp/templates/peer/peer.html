@@ -6,6 +6,9 @@
 <div class="row">
 	<div class="col-6">
 		{% include 'peer/peer_form.html' %}
+		<a class="btn btn-warning" href="{{ url_for('peer.peer_config_view', peer_id=peer.id)}}">
+			<i class="bi bi-card-text"></i> Policy Config
+		</a>
 	</div>
 
 	<div class="col-6">
