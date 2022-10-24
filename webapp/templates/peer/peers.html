@@ -25,18 +25,20 @@
 				<th scope="col">Current prefixes</th>
 				<th scope="col">New prefixes</th>
 				<th scope="col">Prefixes to delete</th>
+				<th scope="col">Config</th>
 			</tr>
 			</thead>
 			<tbody>
-			{% for peer in peers %}
+			{% for id, asn, asset, client_name, remark, current, new, todelete in peers %}
 			<tr>
-				<td><a href="{{ url_for('peer.peer_view', peer_id=peer.id) }}">{{ peer.asn }}</a></td>
-				<td>{{ peer.asset or '' }}</td>
-				<td>{{ peer.client or '' }}</td>
-				<td>{{ peer.remark }}</td>
-				<td>{{ peer_prefixes[peer.asn]['current'] | length }}</td>
-				<td>{{ peer_prefixes[peer.asn]['new'] | length }}</td>
-				<td>{{ peer_prefixes[peer.asn]['todelete'] | length }}</td>
+				<td><a href="{{ url_for('peer.peer_view', peer_id=id) }}">{{ asn }}</a></td>
+				<td>{{ asset or '' }}</td>
+				<td>{{ client_name or '' }}</td>
+				<td>{{ remark }}</td>
+				<td class="text-center"><span class="badge text-bg-primary">{{ current or '' }}</span></td>
+				<td class="text-center"><span class="badge text-bg-success">{{ new or '' }}</span></td>
+				<td class="text-center"><span class="badge text-bg-danger">{{ todelete or '' }}</span></td>
+				<td><a class="btn btn-sm btn-warning" href="{{ url_for('peer.peer_config_view', peer_id=id)}}">Config</a></td>
 			</tr>
 			{% endfor %}
 			</tbody>
