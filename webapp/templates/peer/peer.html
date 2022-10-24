@@ -22,9 +22,15 @@
 		<table class="table">
 			<thead>
 			<tr>
-				<th scope="col">Current prefixes</th>
-				<th scope="col">New prefixes</th>
-				<th scope="col">Prefixes to delete</th>
+				<th scope="col">Current prefixes
+					<span class="badge text-bg-primary">{{ peer_prefixes['current'] | length or '' }}</span>
+				</th>
+				<th scope="col">New prefixes
+					<span class="badge text-bg-success">{{ peer_prefixes['new'] | length or '' }}</span>
+				</th>
+				<th scope="col">Prefixes to delete
+					<span class="badge text-bg-danger">{{ peer_prefixes['todelete'] | length or ''}}</span>
+				</th>
 			</tr>
 			</thead>
 			<tbody>

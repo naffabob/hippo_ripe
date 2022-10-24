@@ -2,7 +2,7 @@ from datetime import date
 
 from flask import abort, Blueprint, flash, request, render_template, redirect, url_for, Response
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func, or_
 from sqlalchemy.sql.expression import case
 
 from webapp.client.models import Client
@@ -120,13 +120,36 @@ def add_peer_view():
     return render_template('peer/add_peer.html', form=peer_form, peer=peer)
 
 
-@blueprint.route('/<int:peer_id>/config')
+@blueprint.route('/<int:peer_id>/config', methods=['POST', 'GET'])
 def peer_config_view(peer_id):
     peer = Peer.query.get(peer_id)
     if not peer:
         abort(404)
 
     today_date = date.today().strftime('%Y-%m-%d')
+
+    if request.method == 'POST':
+        action = request.form.get('action')
+
+        if action == 'update_config':
+            updating_prefixes = Prefix.query.filter(
+                or_(Prefix.state == Prefix.STATE_TODELETE, Prefix.state == Prefix.STATE_NEW),
+                Prefix.peer == peer,
+            )
+            if not updating_prefixes.count():
+                flash(f'Nothing to change', category='warning')
+                return redirect(url_for('peer.peer_view', peer_id=peer_id))
+
+            for prefix in updating_prefixes:
+                if prefix.state == Prefix.STATE_TODELETE:
+                    db.session.delete(prefix)
+                elif prefix.state == Prefix.STATE_NEW:
+                    prefix.state = Prefix.STATE_CURRENT
+                    db.session.add(prefix)
+            db.session.commit()
+
+            flash(f'Prefixes successfully updated for peer: {peer.asset or peer.asn}', category='success')
+            return redirect(url_for('peer.peer_view', peer_id=peer_id))
 
     return render_template('peer/config.html', peer=peer, date=today_date)
 
