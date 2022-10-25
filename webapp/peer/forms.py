@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField
+from wtforms import StringField, SelectField
 from wtforms.validators import DataRequired, Length, Regexp
 
 
@@ -28,6 +28,3 @@ class PeerForm(FlaskForm):
         validators=[DataRequired(message='Поле обязательно для заполнения')],
         render_kw=render_kw,
     )
-    current_prefixes = StringField(label='Актуальные префиксы', render_kw=render_kw)
-    new_prefixes = StringField(label='Новые префиксы', render_kw=render_kw)
-    todelete_prefixes = StringField(label='Префиксы для удаления', render_kw=render_kw)

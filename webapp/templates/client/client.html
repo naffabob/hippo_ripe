@@ -2,13 +2,13 @@
 
 {% block content %}
 
-<h4>Client settings</h4>
 <div class="row">
-	<div class="col-4">
+	<div class="col-md-6 pb-3">
+		<h4>Client settings</h4>
 		<form method="POST">
 			{% include 'client/client_form.html' %}
 			<div class="mb-3">
-				<button type="submit" class="btn btn-success" name="action" value="update_peer">
+				<button type="submit" class="btn btn-success" name="action" value="update_client">
 					<i class="bi bi-check-circle"></i> Update
 				</button>
 				<button class="btn btn-danger" name="action" value="delete_client">
@@ -17,7 +17,37 @@
 			</div>
 		</form>
 	</div>
-	<div class="col-8">
+	<div class="col-md-6">
+		<h4>Clients peers</h4>
+		<table class="table mb-3">
+			<thead>
+			<tr>
+				<th scope="col">Peer</th>
+				<th scope="col">ASSET</th>
+				<th scope="col">Remark</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for peer in client.peers %}
+			<tr>
+				<td><a href="{{ url_for('peer.peer_view', peer_id=peer.id) }}">{{ peer.asn }}</a></td>
+				<td>{{ peer.asset }}</td>
+				<td>{{ peer.remark }}</td>
+			</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+
+		<h4>Add peer</h4>
+		<form method="POST">
+			{% include 'client/client_peer_form.html' %}
+			<div class="mb-3">
+				<button type="submit" class="btn btn-success" name="action" value="create_peer">
+					<i class="bi bi-check-circle"></i> Create
+				</button>
+			</div>
+		</form>
+
 	</div>
 </div>
 

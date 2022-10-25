@@ -11,10 +11,9 @@
 				<button type="submit" class="btn btn-success" name="action" value="update_peer">
 					<i class="bi bi-check-circle"></i> Update
 				</button>
-				<button class="btn btn-danger" name="action" value="delete_client">
+				<button class="btn btn-danger" name="action" value="delete_peer">
 					<i class="bi bi-dash-circle"></i> Delete
 				</button>
-				<a class="btn btn-secondary" href="{{ url_for('peer.peers_view')}}">Back</a>
 				<a class="btn btn-warning" href="{{ url_for('peer.peer_config_view', peer_id=peer.id)}}">
 					<i class="bi bi-card-text"></i> Policy Config
 				</a>

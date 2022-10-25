@@ -88,7 +88,8 @@ def peer_view(peer_id):
                 return redirect(url_for('peer.peer_view', peer_id=peer_id))
 
             flash('Данные успешно сохранены', category='success')
-            return redirect(url_for('peer.peers_view'))
+            return redirect(url_for('peer.peer_view', peer_id=peer_id))
+
     return render_template('peer/peer.html', form=peer_form, peer=peer, peer_prefixes=peer_prefixes)
 
 
@@ -115,7 +116,7 @@ def add_peer_view():
                 return redirect(url_for('peer.add_peer_view'))
 
             flash('Данные успешно сохранены', category='success')
-            return redirect(url_for('peer.peers_view'))
+            return redirect(url_for('peer.peer_view', peer_id=peer.id))
 
     return render_template('peer/add_peer.html', form=peer_form, peer=peer)
 

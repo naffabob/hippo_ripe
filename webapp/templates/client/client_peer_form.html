@@ -1,0 +1,18 @@
+{{ peer_form.hidden_tag() }}
+<div class="mb-3">
+	{{ peer_form.asn.label }}
+	{{ peer_form.asn }}
+	{% if peer_form.asn.errors %}
+		{% for error in peer_form.asn.errors %}
+			<p class="text-danger">{{ error }}</p>
+		{% endfor %}
+	{% endif %}
+</div>
+<div class="mb-3">
+	{{ peer_form.asset.label }}
+	{{ peer_form.asset }}
+</div>
+<div class="mb-3">
+	{{ peer_form.remark.label }}
+	{{ peer_form.remark }}
+</div>
