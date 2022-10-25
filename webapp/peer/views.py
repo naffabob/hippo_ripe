@@ -67,6 +67,8 @@ def peer_view(peer_id):
 
     if request.method == 'POST':
         action = request.form.get("action", None)
+        back = url_for('peer.peer_view', peer_id=peer_id)
+
         if action == 'delete_peer':
             db.session.delete(peer)
             db.session.commit()
@@ -85,10 +87,10 @@ def peer_view(peer_id):
                 db.session.commit()
             except IntegrityError:
                 flash('Такой клиент уже существует', category='error')
-                return redirect(url_for('peer.peer_view', peer_id=peer_id))
+                return redirect(back)
 
             flash('Данные успешно сохранены', category='success')
-            return redirect(url_for('peer.peer_view', peer_id=peer_id))
+            return redirect(back)
 
     return render_template('peer/peer.html', form=peer_form, peer=peer, peer_prefixes=peer_prefixes)
 

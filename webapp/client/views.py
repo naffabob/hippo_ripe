@@ -33,6 +33,7 @@ def client_view(client_id):
 
     if request.method == 'POST':
         action = request.form.get("action", None)
+        back = url_for('client.client_view', client_id=client_id)
 
         if action == 'delete_client':
             db.session.delete(client)
@@ -48,10 +49,10 @@ def client_view(client_id):
                     db.session.commit()
                 except IntegrityError:
                     flash('Такой клиент уже существует', category='error')
-                    return redirect(url_for('client.client_view', client_id=client_id))
+                    return redirect(back)
 
                 flash('Данные успешно сохранены', category='success')
-                return redirect(url_for('client.client_view', client_id=client_id))
+                return redirect(back)
 
         if action == 'create_peer':
             if peer_form.validate_on_submit():
@@ -65,10 +66,10 @@ def client_view(client_id):
                     db.session.commit()
                 except IntegrityError:
                     flash('Такой peer уже существует', category='error')
-                    return redirect(url_for('client.client_view', client_id=client_id))
+                    return redirect(back)
 
                 flash('Данные успешно сохранены', category='success')
-                return redirect(url_for('client.client_view', client_id=client_id))
+                return redirect(back)
 
     return render_template('client/client.html', form=client_form, client=client, peer_form=peer_form)
 

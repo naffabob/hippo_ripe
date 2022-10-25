@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h4>Peer settings</h4>
 <div class="row">
 	<div class="col-6">
+		<h4>Peer settings</h4>
 		<form method="POST">
 			{% include 'peer/peer_form.html' %}
 			<div class="mb-3">
@@ -22,16 +22,17 @@
 	</div>
 
 	<div class="col-6">
+		<h4>Prefixes</h4>
 		<table class="table">
 			<thead>
 			<tr>
-				<th scope="col">Current prefixes
+				<th class="col-4" scope="col">Current
 					<span class="badge text-bg-primary">{{ peer_prefixes['current'] | length or '' }}</span>
 				</th>
-				<th scope="col">New prefixes
+				<th class="col-4" scope="col">New
 					<span class="badge text-bg-success">{{ peer_prefixes['new'] | length or '' }}</span>
 				</th>
-				<th scope="col">Prefixes to delete
+				<th class="col-4" scope="col">To delete
 					<span class="badge text-bg-danger">{{ peer_prefixes['todelete'] | length or ''}}</span>
 				</th>
 			</tr>

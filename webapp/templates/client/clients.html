@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="row">
+<div class="row mb-3">
 	<div class="col-6">
 		<h4>Provider clients</h4>
 	</div>
@@ -13,19 +13,19 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-6">
+	<div class="col-12">
 		<table class="table">
 			<thead>
 			<tr>
-				<th scope="col">Client name</th>
-				<th scope="col">Peers</th>
+				<th scope="col" >Client name</th>
+				<th scope="col" class="text-end">Peers</th>
 			</tr>
 			</thead>
 			<tbody>
 			{% for clients_id, client_name, peers_count in clients %}
 			<tr>
 				<td><a href="{{ url_for('client.client_view', client_id=clients_id) }}">{{ client_name }}</a></td>
-				<td>{{ peers_count }}</td>
+				<td class="text-end"><span class="badge text-bg-primary">{{ peers_count or '' }}</span></td>
 			</tr>
 			{% endfor %}
 			</tbody>
