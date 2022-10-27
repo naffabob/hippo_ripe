@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_migrate import Migrate
 
 from webapp.client.views import blueprint as client_blueprint
 from webapp.db import db
@@ -11,6 +12,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_pyfile('settings.py')
     db.init_app(app)
+    migrate = Migrate(app, db)
 
     app.register_blueprint(client_blueprint)
     app.register_blueprint(peer_blueprint)
