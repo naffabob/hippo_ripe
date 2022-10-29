@@ -12,14 +12,20 @@ blueprint = Blueprint('client', __name__, url_prefix='/clients')
 
 @blueprint.route('/')
 def clients_view():
+    page = 'clients'
+
     clients = db.session.query(
         Client.id,
         Client.name,
         func.count(Peer.id)
     ).join(Client.peers, isouter=True).group_by(Client.id)
 
-    page = 'clients'
-    return render_template('client/clients.html', clients=clients, page=page)
+    search_str = request.args.get('search')
+    if search_str:
+        search = f'%{search_str}%'
+        clients = clients.filter(Client.name.like(search))
+
+    return render_template('client/clients.html', clients=clients, page=page, search_str=search_str)
 
 
 @blueprint.route('/<int:client_id>', methods=['POST', 'GET'])

@@ -3,13 +3,16 @@
 {% block content %}
 
 <div class="row mb-3">
-	<div class="col-6">
-		<h4>Provider peers</h4>
+	<div class="col-8">
+		<h4>
+			Provider peers
+			<a class="btn btn-light" href="{{ url_for('peer.add_peer_view')}}">
+				<i class="bi bi-plus-circle"></i>
+			</a>
+		</h4>
 	</div>
-	<div class="col-6 text-end">
-		<a class="btn btn-primary" href="{{ url_for('peer.add_peer_view')}}">
-			<i class="bi bi-plus-circle"></i> Add new
-		</a>
+	<div class="col-4 text-end">
+		{% include 'search_form.html' %}
 	</div>
 </div>
 
@@ -37,6 +40,10 @@
 				<td class="text-center"><span class="badge text-bg-primary">{{ current or '' }}</span></td>
 				<td class="text-center"><span class="badge text-bg-success">{{ new or '' }}</span></td>
 				<td class="text-center"><span class="badge text-bg-danger">{{ todelete or '' }}</span></td>
+			</tr>
+			{% else %}
+			<tr>
+				<td colspan="100%" class="text-center text-muted">Empty</td>
 			</tr>
 			{% endfor %}
 			</tbody>
