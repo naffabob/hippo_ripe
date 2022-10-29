@@ -11,9 +11,34 @@
 				<button type="submit" class="btn btn-success" name="action" value="update_client">
 					<i class="bi bi-check-circle"></i> Update
 				</button>
-				<button class="btn btn-danger" name="action" value="delete_client">
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#configModal">
 					<i class="bi bi-dash-circle"></i> Delete
 				</button>
+				<!-- Modal -->
+				<div class="modal fade" id="configModal" tabindex="-1" aria-labelledby="configModalLabel" aria-hidden="true">
+					<form method="POST">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="configModalLabel">Delete client</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<p>Are you confirm to delete client?</p>
+									<p class="text-muted fw-light">All peers and prefixes of this client will be deleted too</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+									<button type="submit" class="btn btn-danger" name="action" value="delete_client">
+										<i class="bi bi-dash-circle"></i> Delete
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
 			</div>
 		</form>
 	</div>
@@ -33,6 +58,10 @@
 				<td><a href="{{ url_for('peer.peer_view', peer_id=peer.id) }}">{{ peer.asn }}</a></td>
 				<td>{{ peer.asset }}</td>
 				<td>{{ peer.remark }}</td>
+			</tr>
+			{% else %}
+			<tr>
+				<td colspan="100%" class="text-center text-muted">Empty</td>
 			</tr>
 			{% endfor %}
 			</tbody>

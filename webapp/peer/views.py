@@ -70,7 +70,8 @@ def peer_view(peer_id):
     peer_form.client.choices = choices
     peer_form.client.data = peer.client.id
 
-    prefixes = peer.prefixes
+    prefixes = Prefix.query.filter(Prefix.peer == peer).order_by(Prefix.prefix)
+
     peer_prefixes = {
         'current': [prefix for prefix in prefixes if prefix.state == prefix.STATE_CURRENT],
         'new': [prefix for prefix in prefixes if prefix.state == prefix.STATE_NEW],
