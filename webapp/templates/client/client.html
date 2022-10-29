@@ -59,6 +59,10 @@
 				<td>{{ peer.asset }}</td>
 				<td>{{ peer.remark }}</td>
 			</tr>
+			{% else %}
+			<tr>
+				<td colspan="100%" class="text-center text-muted">Empty</td>
+			</tr>
 			{% endfor %}
 			</tbody>
 		</table>
