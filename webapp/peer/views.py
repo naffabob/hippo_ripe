@@ -43,7 +43,19 @@ def peers_view():
         ).label(Prefix.STATE_TODELETE),
     ).join(Peer.prefixes, Peer.client, isouter=True).group_by(Peer.id)
 
-    return render_template('peer/peers.html', page=page, peers=peers)
+    search_str = request.args.get('search')
+    search = f'%{search_str}%'
+    if search_str:
+        peers = peers.filter(
+            or_(
+                Peer.asn.like(search),
+                Peer.remark.like(search),
+                Peer.asset.like(search),
+                Client.name.like(search),
+            )
+        )
+
+    return render_template('peer/peers.html', page=page, peers=peers, search_str=search_str)
 
 
 @blueprint.route('/<int:peer_id>', methods=['POST', 'GET'])

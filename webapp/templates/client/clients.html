@@ -3,13 +3,16 @@
 {% block content %}
 
 <div class="row mb-3">
-	<div class="col-6">
-		<h4>Provider clients</h4>
+	<div class="col-8">
+		<h4>
+			Provider clients
+			<a class="btn btn-light" href="{{ url_for('client.add_client_view')}}">
+				<i class="bi bi-plus-circle"></i>
+			</a>
+		</h4>
 	</div>
-	<div class="col-6 text-end">
-		<a class="btn btn-primary" href="{{ url_for('client.add_client_view')}}">
-			<i class="bi bi-plus-circle"></i> Add new
-		</a>
+	<div class="col-4 text-end">
+		{% include 'search_form.html' %}
 	</div>
 </div>
 <div class="row">
@@ -17,7 +20,7 @@
 		<table class="table">
 			<thead>
 			<tr>
-				<th scope="col" >Client name</th>
+				<th scope="col">Client name</th>
 				<th scope="col" class="text-end">Peers</th>
 			</tr>
 			</thead>
@@ -26,6 +29,10 @@
 			<tr>
 				<td><a href="{{ url_for('client.client_view', client_id=clients_id) }}">{{ client_name }}</a></td>
 				<td class="text-end"><span class="badge text-bg-primary">{{ peers_count or '' }}</span></td>
+			</tr>
+			{% else %}
+			<tr>
+				<td colspan="100%" class="text-center text-muted">Empty</td>
 			</tr>
 			{% endfor %}
 			</tbody>
