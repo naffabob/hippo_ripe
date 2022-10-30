@@ -11,9 +11,9 @@
 				<button type="submit" class="btn btn-success" name="action" value="add_peer">
 					<i class="bi bi-check-circle"></i> Create
 				</button>
-				<button class="btn btn-danger" name="action" value="delete_peer">
-					<i class="bi bi-dash-circle"></i> Delete
-				</button>
+				<a class="btn btn-secondary" href="{{ url_for('peer.peers_view') }}">
+					<i class="bi bi-x-circle"></i> Cancel
+				</a>
 			</div>
 		</form>
 	</div>

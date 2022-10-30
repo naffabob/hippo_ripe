@@ -2,6 +2,15 @@
 
 {% block content %}
 
+<div class="row mb-4">
+	<div class="col-6">
+		<h3>{{ client.name }}</h3>
+	</div>
+	<div class="col-6 text-end">
+
+	</div>
+</div>
+
 <div class="row">
 	<div class="col-md-6 pb-3">
 		<h4>Client settings</h4>
@@ -56,8 +65,8 @@
 			{% for peer in client.peers %}
 			<tr>
 				<td><a href="{{ url_for('peer.peer_view', peer_id=peer.id) }}">{{ peer.asn }}</a></td>
-				<td>{{ peer.asset }}</td>
-				<td>{{ peer.remark }}</td>
+				<td>{{ peer.asset or '—' }}</td>
+				<td>{{ peer.remark or '—' }}</td>
 			</tr>
 			{% else %}
 			<tr>
@@ -67,7 +76,7 @@
 			</tbody>
 		</table>
 
-		<h4>Add peer</h4>
+		<h5>Add peer</h5>
 		<form method="POST">
 			{% include 'client/client_peer_form.html' %}
 			<div class="mb-3">

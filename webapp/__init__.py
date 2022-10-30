@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from flask_migrate import Migrate
 
 from webapp.client.views import blueprint as client_blueprint
@@ -21,8 +21,7 @@ def create_app():
 
     @app.route('/')
     def index():
-        title = 'Provider RIPE DB'
-        return render_template('index.html', page_title=title)
+        return redirect(url_for('client.clients_view'))
 
     return app
 

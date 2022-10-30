@@ -54,10 +54,10 @@ def client_view(client_id):
                 try:
                     db.session.commit()
                 except IntegrityError:
-                    flash('Такой клиент уже существует', category='error')
+                    flash('Client already exists', category='error')
                     return redirect(back)
 
-                flash('Данные успешно сохранены', category='success')
+                flash('Successfully updated', category='success')
                 return redirect(back)
 
         if action == 'create_peer':
@@ -71,10 +71,10 @@ def client_view(client_id):
                 try:
                     db.session.commit()
                 except IntegrityError:
-                    flash('Такой peer уже существует', category='error')
+                    flash('Peer already exists', category='error')
                     return redirect(back)
 
-                flash('Данные успешно сохранены', category='success')
+                flash('Successfully created', category='success')
                 return redirect(back)
 
     return render_template('client/client.html', form=client_form, client=client, peer_form=peer_form)
@@ -91,9 +91,9 @@ def add_client_view():
             try:
                 db.session.commit()
             except IntegrityError:
-                flash(f'Такой клиент уже существует', category='error')
+                flash(f'Client already exists', category='error')
                 return redirect(url_for('client.add_client_view'))
 
-            flash('Данные успешно сохранены', category='success')
+            flash('Successfully created', category='success')
             return redirect(url_for('client.client_view', client_id=client.id))
     return render_template('client/add_client.html', form=client_form, client=client)

@@ -16,7 +16,7 @@ def prefix_view(prefix_id):
             prefix.prefix = prefix_form.prefix.data
             db.session.add(prefix)
             db.session.commit()
-            flash('Данные успешно сохранены')
+            flash('Successfully updated')
             return redirect(url_for('prefix.prefix_view', prefix_id=prefix.id))
 
     return render_template('prefix/prefix.html', form=prefix_form, prefix=prefix)

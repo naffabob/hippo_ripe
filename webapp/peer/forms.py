@@ -4,27 +4,26 @@ from wtforms.validators import DataRequired, Length, Regexp
 
 
 class PeerForm(FlaskForm):
-    render_kw = {"class": "form-control"}
     min_string_value = 5
     max_string_value = 13
     asn = StringField(
-        label='Номер AS',
+        label='ASN',
         validators=[
-            DataRequired(message='Поле обязательно для заполнения'),
+            DataRequired(message='The field is required'),
             Length(
                 min=min_string_value,
                 max=max_string_value,
-                message=f'Количество симовлов должно быть от {min_string_value} до {max_string_value}'
+                message=f'From {min_string_value} to {max_string_value} characters'
             ),
-            Regexp(regex='^AS[0-9]*$', message='Неверный формат AS-NUM'),
+            Regexp(regex='^AS[0-9]*$', message='Wrong ASN format'),
         ],
-        render_kw=render_kw
+        render_kw={'class': 'form-control', 'placeholder': 'AS999'},
     )
-    asset = StringField(label='AS-SET', render_kw=render_kw)
-    remark = StringField(label='Описание', render_kw=render_kw)
+    asset = StringField(label='ASSET', render_kw={'class': 'form-control', 'placeholder': 'AS-NINE'})
+    remark = StringField(label='Remark', render_kw={'class': 'form-control', 'placeholder': 'Nine Ltd'})
     client = SelectField(
-        label='Выберите клиента',
+        label='Choose client',
         coerce=int,
-        validators=[DataRequired(message='Поле обязательно для заполнения')],
-        render_kw=render_kw,
+        validators=[DataRequired(message='The field is required')],
+        render_kw={'class': 'form-control'},
     )
