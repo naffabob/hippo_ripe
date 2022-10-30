@@ -95,5 +95,5 @@ def add_client_view():
                 return redirect(url_for('client.add_client_view'))
 
             flash('Данные успешно сохранены', category='success')
-            return redirect(url_for('client.clients_view'))
+            return redirect(url_for('client.client_view', client_id=client.id))
     return render_template('client/add_client.html', form=client_form, client=client)

@@ -10,6 +10,7 @@ from webapp.db import db
 from webapp.peer.forms import PeerForm
 from webapp.peer.models import Peer
 from webapp.prefix.models import Prefix
+from webapp.provider_ripedb import get_prefixes_bgpq3, save_prefixes
 
 blueprint = Blueprint('peer', __name__, url_prefix='/peers')
 
@@ -87,6 +88,12 @@ def peer_view(peer_id):
             db.session.commit()
             flash('Peer deleted', category='success')
             return redirect(url_for('peer.peers_view'))
+
+        if action == 'get_prefixes':
+            prefixes = get_prefixes_bgpq3(peer.asset or peer.asn)
+            save_prefixes(peer_id=peer.id, ripe_prefixes=prefixes)
+            flash('Prefixes updated', category='success')
+            return redirect(back)
 
         peer_form = PeerForm()
         peer_form.client.choices = choices
