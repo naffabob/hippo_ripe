@@ -4,8 +4,8 @@ from webapp.db import db
 from webapp.prefix.models import Prefix
 
 
-def get_prefixes_bgpq3(ripe_obj) -> set:
-    stream = os.popen(f'bgpq3 -J -m 24 {ripe_obj}')
+def update_prefixes_bgpq3(ripe_obj) -> set[str]:
+    stream = os.popen(f'bgpq3 -J -m 24 {ripe_obj}')  # полный путь к bgpq3
     bgp_output = stream.read()
     prefixes = {line.strip(' ;') for line in bgp_output.splitlines() if '/' in line}
     return prefixes

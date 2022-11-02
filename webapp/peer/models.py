@@ -20,4 +20,4 @@ class Peer(db.Model):
         return Prefix.query.filter(
             or_(Prefix.state == Prefix.STATE_NEW, Prefix.state == Prefix.STATE_CURRENT),
             Prefix.peer == self,
-        )
+        ).order_by(Prefix.prefix)
