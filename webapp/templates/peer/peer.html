@@ -11,8 +11,8 @@
 			<a class="btn btn-warning" href="{{ url_for('peer.peer_config_view', peer_id=peer.id)}}">
 				<i class="bi bi-card-text"></i> Policy Config
 			</a>
-			<button class="btn btn-secondary" name="action" value="get_prefixes" title="Get prefixes">
-				<i class="bi bi-box-arrow-down"></i> Get prefixes
+			<button class="btn btn-secondary" name="action" value="get_prefixes" title="Update prefixes">
+				<i class="bi bi-box-arrow-down"></i> Update prefixes
 			</button>
 		</form>
 	</div>
@@ -55,12 +55,12 @@
 		</form>
 	</div>
 
-	<div class="col-6">
+	<div class="col-8">
 		<h4>Peer prefixes</h4>
 		<table class="table">
 			<thead>
 			<tr>
-				<th class="col-4" scope="col">Current
+				<th class="col-4" scope="col">Configured
 					<span class="badge text-bg-primary">{{ peer_prefixes['current'] | length or '' }}</span>
 				</th>
 				<th class="col-4" scope="col">New

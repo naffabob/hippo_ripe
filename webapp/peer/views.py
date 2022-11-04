@@ -106,7 +106,7 @@ def peer_view(peer_id):
             try:
                 db.session.commit()
             except IntegrityError:
-                flash('Client already exists', category='error')
+                flash('Peer already exists', category='error')
                 return redirect(back)
 
             flash('Successfully updated', category='success')

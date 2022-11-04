@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="row">
+<div class="row mb-3">
 	<div class="col-6">
 		<h4>Policy config
 			<a title="Plain config" href="{{ url_for('peer.peer_plain_config_view', peer_id=peer.id) }}">
@@ -30,7 +30,7 @@
 				<div class="modal-body">
 					<p>Are you confirm device update?</p>
 					<p class="text-muted fw-light">You need to update policy-options on devices, before commit changes.
-						All peer prefixes will become Current.</p>
+						All peer prefixes will become Configured.</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -45,7 +45,7 @@
 
 <div class="row">
 	<div class="col-12">
-		<pre>{% include 'peer/config.txt' %}</pre>
+		<pre style="color: #ebebeb; background-color: #333333; padding: 10px; border-radius: 5px">{% include 'peer/config.txt' %}</pre>
 	</div>
 </div>
 

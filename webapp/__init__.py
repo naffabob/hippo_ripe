@@ -21,7 +21,7 @@ def create_app():
 
     @app.route('/')
     def index():
-        return redirect(url_for('client.clients_view'))
+        return redirect(url_for('peer.peers_view'))
 
     return app
 
