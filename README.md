@@ -3,6 +3,8 @@
 ## Что это
 hippo_ripe - инструмент учета префиксов BGP-пиров провайдера и генерации access-list-ов. Использует [bgpq3](https://github.com/snar/bgpq3) для обновления данных из агрегаторов. Позволяет наглядно отображать изменения в списках. В hippo_ripe используются Flask и SQLite.
 
+![peer_screenshot](pics/peer_screenshot.png)
+
 ## Установка
 Скачайте проект с github
 ```
@@ -27,7 +29,7 @@ flask db upgrade
 export FLASK_APP=webapp && flask run
 ```
 
-Исполняемый файл для получения префиксов: [get_prefixes.py](get_prefixes.py)
+Исполняемый файл для получения префиксов: [get_prefixes.py](update_prefixes.py)
 Запустите его по необходимости.
 
 Либо добавьте в crontab автоматический запуск, например каждые сутки
