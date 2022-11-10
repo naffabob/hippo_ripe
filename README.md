@@ -29,10 +29,10 @@ flask db upgrade
 export FLASK_APP=webapp && flask run
 ```
 
-Исполняемый файл для получения префиксов: [get_prefixes.py](update_prefixes.py)
+Исполняемый файл для получения префиксов: [update_prefixes.py](update_prefixes.py)
 Запустите его по необходимости.
 
 Либо добавьте в crontab автоматический запуск, например каждые сутки
 ```commandline
-* * 1 * * <path_to_venv>/python get_prefixes.py
+* * 1 * * <path_to_venv>/python update_prefixes.py
 ```

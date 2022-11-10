@@ -89,7 +89,7 @@ def peer_view(peer_id):
             flash('Peer deleted', category='success')
             return redirect(url_for('peer.peers_view'))
 
-        if action == 'get_prefixes':
+        if action == 'update_prefixes':
             prefixes = update_prefixes_bgpq3(peer.asset or peer.asn)
             save_prefixes(peer_id=peer.id, ripe_prefixes=prefixes)
             flash('Prefixes updated', category='success')
