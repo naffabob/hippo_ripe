@@ -106,6 +106,7 @@ def peer_view(peer_id):
             try:
                 db.session.commit()
             except IntegrityError:
+                db.session.rollback()
                 flash('Peer already exists', category='error')
                 return redirect(back)
 
@@ -134,6 +135,7 @@ def add_peer_view():
             try:
                 db.session.commit()
             except IntegrityError:
+                db.session.rollback()
                 flash('Peer already exists', category='error')
                 return redirect(url_for('peer.add_peer_view'))
 

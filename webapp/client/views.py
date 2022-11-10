@@ -54,6 +54,7 @@ def client_view(client_id):
                 try:
                     db.session.commit()
                 except IntegrityError:
+                    db.session.rollback()
                     flash('Client already exists', category='error')
                     return redirect(back)
 
@@ -71,6 +72,7 @@ def client_view(client_id):
                 try:
                     db.session.commit()
                 except IntegrityError:
+                    db.session.rollback()
                     flash('Peer already exists', category='error')
                     return redirect(back)
 
@@ -91,6 +93,7 @@ def add_client_view():
             try:
                 db.session.commit()
             except IntegrityError:
+                db.session.rollback()
                 flash(f'Client already exists', category='error')
                 return redirect(url_for('client.add_client_view'))
 
