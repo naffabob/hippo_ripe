@@ -97,3 +97,22 @@ class TestClient:
             response = self.peer.post(f'/peers/{peer.id}', data=form_data)
             assert response.status_code == 302
             assert Peer.query.get(peer.id) is None
+
+    def test_peer_validators(self):
+        with flask_app.app_context():
+            client = self.create_client('C2')
+
+            allowed_asns = ['AS768', 'AS869695044']
+            disallowed_asns = ['jjjddd', 'as8590', '222f']
+
+            for peer_asn in allowed_asns:
+                form_data = {'asn': peer_asn, 'client': client.id}
+                response = self.peer.post('/peers/add', data=form_data)
+                assert response.status_code == 302
+                assert Peer.query.filter(Peer.asn == peer_asn).first()
+
+            for peer_asn in disallowed_asns:
+                form_data = {'asn': peer_asn, 'client': client.id}
+                response = self.peer.post('/peers/add', data=form_data)
+                assert response.status_code == 200
+                assert Peer.query.filter(Peer.asn == peer_asn).first() is None
